@@ -49,3 +49,31 @@ Pattern = "TGATCA"
 # Finally, print the result of calling PatternCount on Text and Pattern.
 print (PatternCount(Text,Pattern))
 # Don't forget to use the notation print() with parentheses included!
+Write a function ReverseComplement() to solve the Reverse Complement Problem, 
+Reverse Complement Problem:  Find the reverse complement of a DNA string.
+     Input: A DNA string Pattern.
+     Output: The reverse complement of Pattern
+#Input:  A DNA string Pattern
+# Output: The reverse complement of Pattern
+def ReverseComplement(Pattern):   
+    # your code here
+    Pattern = Reverse(Pattern) # reverse all letters in a string
+    Pattern = Complement(Pattern) # complement each letter in a string
+    return Pattern
+# Copy your Reverse() function here.
+def Reverse(Pattern):
+    # your code here
+    reverse = ''
+    for char in Pattern:
+        reverse = char + reverse
+    return reverse
+
+# Copy your Complement() function here.
+def Complement(Pattern):
+    # your code here
+    basepairs = {"A":"T", "G":"C", "T":"A", "C":"G"}
+    complement = ""
+    for base in Pattern:
+        complement += basepairs.get(base)
+    return complement
+ 
