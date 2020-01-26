@@ -155,3 +155,35 @@ def PatternCount(Text, Pattern):
     return Count
             
     # type your code here
+# Input:  Strings Genome and symbol
+# Output: FasterSymbolArray(Genome, symbol)
+def FasterSymbolArray(Genome, symbol):
+    array = {}
+    l=len(Genome)
+    ExtendedGenome=Genome+Genome[0:l//2]
+    array[0]=PatternCount(ExtendedGenome[0:l//2],symbol)
+    for i in range(1,l):
+        array[i]=array[i-1]
+        if ExtendedGenome[i-1]==symbol:
+            array[i]-=1
+        if ExtendedGenome[i+l//2-1]==symbol:
+            array[i]+=1
+    # your code here
+    return array
+
+# Input: Strings Text and Pattern
+# Output: The number of times Pattern appears in Text
+# HINT: This code should be identical to when you last implemented PatternCount
+def PatternCount(Pattern, Text):
+    count = 0 # output variable
+    k=len(Text)
+    n=len(Pattern)
+    for i in range(n-k+1):
+        if Pattern[i:i+k]==Text:
+            count+=1
+    return count
+
+### DO NOT MODIFY THE CODE BELOW THIS LINE ###
+import sys
+lines = sys.stdin.read().splitlines()
+print(FasterSymbolArray(lines[0],lines[1]))
