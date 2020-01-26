@@ -132,3 +132,26 @@ count_2 = PatternCount(Text, "CTTGATCAT")
 
 # Finally, print the sum of count_1 and count_2
 print(count_1+count_2)
+
+# Input:  Strings Genome and symbol
+# Output: SymbolArray(Genome, symbol)
+def SymbolArray(Genome, symbol):
+    # type your code here
+    array = {}
+    n = len(Genome)
+    ExtendedGenome = Genome + Genome[0:n//2]
+    for i in range(n):
+        array[i] = PatternCount(symbol, ExtendedGenome[i:i+(n//2)])
+    return array
+
+# Reproduce the PatternCount function here.
+def PatternCount(Text, Pattern):
+    Count = 0
+    n=len (Pattern)
+    k=len (Text)
+    for i in range (n-k+1):
+        if Pattern[i:i+k]==Text:
+            Count+=1
+    return Count
+            
+    # type your code here
