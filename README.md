@@ -187,3 +187,22 @@ def PatternCount(Pattern, Text):
 import sys
 lines = sys.stdin.read().splitlines()
 print(FasterSymbolArray(lines[0],lines[1]))
+
+# Input:  A String Genome
+# Output: The skew array of Genome as a list.
+def SkewArray(Genome):
+    # your code here
+    Array = [0]
+    BaseValue = { "C": -1, "G" : 1, "A": 0, "T" : 0 }
+    for i in range(len(Genome)):
+        Array.insert(i+1,  BaseValue.get(Genome[i])+Array[i])
+    return Array
+
+ 
+def SkewArray(Genome):
+    # your code here
+    Array = [0]
+    BaseValue = { "C": -1, "G" : 1, "A": 0, "T" : 0 }
+    for i in range(len(Genome)):
+        Array.insert(i+1,  BaseValue.get(Genome[i])+Array[i])
+    return Array
