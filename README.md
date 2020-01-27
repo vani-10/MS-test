@@ -206,3 +206,115 @@ def SkewArray(Genome):
     for i in range(len(Genome)):
         Array.insert(i+1,  BaseValue.get(Genome[i])+Array[i])
     return Array
+
+Motif count
+# Input:  A set of kmers Motifs
+# Output: Count(Motifs)
+def Count(Motifs):
+    count = {} # initializing the count matrix
+    k = len(Motifs[0]) # length of the first kmer (but all are same length)
+    for symbol in "ACGT":
+        count[symbol] = [] # count matrix now has keys A, C, T, and G all with values of empty list
+        for j in range(k):
+            count[symbol].append(0) # count matrix now has keys A, C, G, and T all with values of a list of zeroes of length equal to the length of a kmer
+    t = len(Motifs) # length of Motifs, a list of kmers (strings)
+    for i in range(t): # for each kmer in Motifs
+        for j in range(k): # for each element of the kmer
+            symbol = Motifs[i][j] # assigns the key (symbol) to a nucleotide (ACGT) in Motifs
+            
+            #count[symbol] corresponds to the key of the dictionary count
+            #count[symbol][j] corresponds to the position in the list assigned to the key
+            count[symbol][j] += 1 # adds 1 to the position in the list assigned to the key
+    return count
+Write a function Profile(Motifs) that takes Motifs as input and returns their profile matrix as a dictionary of lists. Then place this function into Motifs.py. Make sure that you use the Count(Motifs) function that we already wrote as a subroutine!
+
+# Insert your Count(Motifs) function here from the last Code Challenge.
+# Input:  A set of kmers Motifs
+# Output: Count(Motifs)
+def Count(Motifs):
+    count = {} # initializing the count matrix
+    k = len(Motifs[0]) # length of the first kmer (but all are same length)
+    for symbol in "ACGT":
+        count[symbol] = [] # count matrix now has keys A, C, T, and G all with values of empty list
+        for j in range(k):
+            count[symbol].append(0) # count matrix now has keys A, C, G, and T all with values of a list of zeroes of length equal to the length of a kmer
+    t = len(Motifs) # length of Motifs, a list of kmers (strings)
+    for i in range(t): # for each kmer in Motifs
+        for j in range(k): # for each element of the kmer
+            symbol = Motifs[i][j] # assigns the key (symbol) to a nucleotide (ACGT) in Motifs
+            
+            #count[symbol] corresponds to the key of the dictionary count
+            #count[symbol][j] corresponds to the position in the list assigned to the key
+            count[symbol][j] += 1 # adds 1 to the position in the list assigned to the key
+    return count
+
+# Input:  A list of kmers Motifs
+# Output: the profile matrix of Motifs, as a dictionary of lists.
+def Profile(Motifs):
+    t = len(Motifs)
+    k = len(Motifs[0])
+    profile = {}
+    # insert your code here
+    profile1 = Count(Motifs)
+    for key in "ACGT":
+        for key in profile1:  
+            profile[key] = [x / t for x in profile1[key]]
+    return profile
+Implement the function Score(Motifs). (Make sure you use Consensus(Motifs) as a subroutine!)  Then add Score(Motifs) to Motifs.py.
+# Copy your Consensus(Motifs) function here.
+def Consensus(Motifs):
+    k = len(Motifs[0])
+    count = Count(Motifs)
+
+    consensus = ''
+
+    for j in range(k):
+        m = 0
+        frequentSymbol = ''
+        for symbol in 'ACGT':
+            if count[symbol][j] > m:
+                m = count[symbol][j]
+                frequentSymbol = symbol
+        consensus += frequentSymbol
+    return consensus
+
+# Copy your Count(Motifs) function here.
+def Count(Motifs):
+    count = {} # initializing the count matrix
+    k = len(Motifs[0]) # length of the first kmer (but all are same length)
+    for symbol in "ACGT":
+        count[symbol] = [] # count matrix now has keys A, C, T, and G all with values of empty list
+        for j in range(k):
+            count[symbol].append(0) # count matrix now has keys A, C, G, and T all with values of a list of zeroes of length equal to the length of a kmer
+    t = len(Motifs) # length of Motifs, a list of kmers (strings)
+    for i in range(t): # for each kmer in Motifs
+        for j in range(k): # for each element of the kmer
+            symbol = Motifs[i][j] # assigns the key (symbol) to a nucleotide (ACGT) in Motifs
+            
+            #count[symbol] corresponds to the key of the dictionary count
+            #count[symbol][j] corresponds to the position in the list assigned to the key
+            count[symbol][j] += 1 # adds 1 to the position in the list assigned to the key
+    return count
+
+# Input:  A set of k-mers Motifs
+# Output: The score of these k-mers.
+def Score(Motifs):
+    # Insert code here
+    result = Consensus(Motifs)
+    counts = Count(Motifs)
+    score = 0
+    i = 0
+    for symbol in result:
+
+        # Score is the sum of (total number of elements per column MINUS
+
+        # the number of occurence of the most frequent symbol per column)   
+
+        score += len(Motifs) - counts[symbol][i]  
+        i += 1
+    return score
+
+
+
+    
+    # Insert code here
